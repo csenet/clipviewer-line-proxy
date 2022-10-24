@@ -1,6 +1,6 @@
-require('dotenv').config({
-  debug: true
-});
+// require('dotenv').config({
+//   debug: true
+// });
 const APIController = require('./ClipVieverAPI');
 const LINEAPIController = require('./LINEBotAPI');
 const express = require('express');
