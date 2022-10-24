@@ -52,7 +52,7 @@ module.exports = class APIController {
     return response.data;
   }
 
-  async getRecentPayload(){
+  async getRecentPayload() {
     const data = (await this.getLastData()).payload[0];
     return data;
   }
@@ -60,7 +60,7 @@ module.exports = class APIController {
   async getEnviromentData() {
     // 温湿度CO2情報を取得する
     const data = await this.getRecentPayload();
-    if(data.payloadType != "温湿度CO2情報") return null;
+    if (data.payloadType != "温湿度CO2情報") return null;
     const timeStamp = data.sendDateTime;
     const temprature = parseFloat(data.temperature);
     const humidity = parseFloat(data.humidity);
