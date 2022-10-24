@@ -13,14 +13,31 @@ let prevDataTimeStamp = null;
 
 async function sendData() {
   const data = await api.getEnviromentData();
+  // データの更新がない場合は送信しないようにする
   if (data.timeStamp == prevDataTimeStamp) return;
-  const messages = [{
-    type: "text",
-    text: `新しいデータを受信しました\nCO2濃度: ${data.co2}ppm\n 温度: ${data.temprature}℃\n 湿度: ${data.humidity}%`
-  }]
-  await line.sendMessages(messages);
+  const messages = getMessage(data);
+  if (messages.length != 0) {
+    await line.sendMessages(messages);
+  }
   prevDataTimeStamp = data.timeStamp;
   console.log("New Data received:" + data.timeStamp);
+}
+
+async function getMessage(data) {
+  let messages = [];
+  if (data.temprature > 30) {
+    messages.push({
+      type: "text",
+      text: "暑いー気温下げてー"
+    });
+  }
+  if (data.humidity < 30) {
+    messages.push({
+      type: "text",
+      text: "喉乾いたよー水がほしいー"
+    });
+  }
+  return messages;
 }
 
 async function main() {
