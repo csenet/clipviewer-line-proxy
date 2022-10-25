@@ -83,10 +83,18 @@ app.post('/webhook', async (req, res) => {
     const text = req.body.events[0].message.text; // ユーザーからのメッセージ
     const replyToken = req.body.events[0].replyToken;
     // ここら辺を書き換えてあげれば返信できる
-    await client.replyMessage(replyToken, {
-      type: "text",
-      text: text + "って言った？" // ユーザに返信するメッセージ
-    });
+    // こんな感じにtext==""とか条件を指定してあげれば大丈夫
+    if (text == "しりとり") {
+      await client.replyMessage(replyToken, {
+        type: "text",
+        text: "りんご"
+      });
+    } else {
+      await client.replyMessage(replyToken, {
+        type: "text",
+        text: text + "！！！"
+      });
+    }
   }
 });
 
