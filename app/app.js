@@ -153,6 +153,28 @@ app.post('/webhook', async (req, res) => {
         type: "text",
         text: "こにゃにゃちわ！"
       });
+    }else if (text == "元気いっぱいに育ってね") {
+      await client.replyMessage(replyToken, {
+        type: "text",
+        text: "うん！すくすく大きくなるね！"
+      });
+    }else if (text == "今日の服は何がいいだろう") {
+     if (data.temprature >= 25) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "今日は暑そうだから涼しい服がいいと思うよ！"
+        });
+      } else if (data.temprature >= 15 && data.temprature < 25) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "今日はちょうどいい気温みたいだね、秋服とか春服とかどうだろう？"
+        });
+      } else if (data.temprature < 15) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "今日は寒そう、暖かい服がいいと思う！"
+        });
+      }
     }else {
       await client.replyMessage(replyToken, {
         type: "text",
