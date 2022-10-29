@@ -95,7 +95,7 @@ app.post('/webhook', async (req, res) => {
     if (text == "しりとり") {
       await client.replyMessage(replyToken, {
         type: "text",
-        text: "ゴリラ"
+        text: "I Love Apple!!!"
       });
     } else if (text == "水は足りてる？") {
       if (data.humidity < 30) {
