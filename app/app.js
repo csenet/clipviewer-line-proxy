@@ -47,7 +47,7 @@ function getMessage(data) {
       text: "暑いー気温下げてー"
     });
   }
-  if (data.humidity < 30) {
+  if (data.humidity < 15) {
     messages.push({
       type: "text",
       text: "喉乾いたよー水がほしいー"
@@ -143,7 +143,17 @@ app.post('/webhook', async (req, res) => {
         type: "text",
         text: "ごちけつ？"
       });
-    } else {
+    } else if (text == "おはよう！") {
+      await client.replyMessage(replyToken, {
+        type: "text",
+        text: "おはよう！！"
+      });
+    }else if (text == "こんにちは！") {
+      await client.replyMessage(replyToken, {
+        type: "text",
+        text: "こにゃにゃちわ！"
+      });
+    }else {
       await client.replyMessage(replyToken, {
         type: "text",
         text: "おっ、そうだな！！！！"
