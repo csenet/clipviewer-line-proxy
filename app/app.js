@@ -89,59 +89,57 @@ app.post('/webhook', async (req, res) => {
         type: "text",
         text: "りんご"
       });
-    } else if (text == "水は足りてる？"){
-        if (data.humidity < 30){
-          await client.replyMessage(replyToken, {
-            type: "text",
-            text: "お水欲しいかな！！！"
-          });
-        }
-        else if (data.humidity > 30){          
-          await client.replyMessage(replyToken, {
-            type: "text",
-            text: "お水は足りてるよ、ありがとう！"
-          });
-        }
-    } else if (text == "部屋の空気は綺麗かな"){
-        if (data.co2 >= 1500){
-          await client.replyMessage(replyToken, {
-            type: "text",
-            text: "換気したほうがいいかも！"
-          });
-        }else if ( data.temprature < 1500 ){
-          await client.replyMessage(replyToken, {
-            type: "text",
-            text: "空気は綺麗だよ！大丈夫！"
-          });
-        }
-    } else if (text == "気分はどう？"){
-        if (data.temprature >= 30){
-          await client.replyMessage(replyToken, {
-            type: "text",
-            text: "ちょっと熱いかな！"
-          });
-        }
-        else if (data.temprature >= 15 && data.temprature < 30 ){          
-          await client.replyMessage(replyToken, {
-            type: "text",
-            text: "超快適さ！"
-          });
-        }else if ( data.temprature < 15 ){
-          await client.replyMessage(replyToken, {
-            type: "text",
-            text: "ちょっと冷えてきたかな、ガクガクブルブル"
-          });
-        }
-    }else if (text == "けつ"){
+    } else if (text == "水は足りてる？") {
+      if (data.humidity < 30) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "お水欲しいかな！！！"
+        });
+      } else if (data.humidity > 30) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "お水は足りてるよ、ありがとう！"
+        });
+      }
+    } else if (text == "部屋の空気は綺麗かな") {
+      if (data.co2 >= 1500) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "換気したほうがいいかも！"
+        });
+      } else if (data.temprature < 1500) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "空気は綺麗だよ！大丈夫！"
+        });
+      }
+    } else if (text == "気分はどう？") {
+      if (data.temprature >= 30) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "ちょっと熱いかな！"
+        });
+      } else if (data.temprature >= 15 && data.temprature < 30) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "超快適さ！"
+        });
+      } else if (data.temprature < 15) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "ちょっと冷えてきたかな、ガクガクブルブル"
+        });
+      }
+    } else if (text == "けつ") {
       await client.replyMessage(replyToken, {
         type: "text",
         text: "ごちけつ？"
-    }else {
+      });
+    } else {
       await client.replyMessage(replyToken, {
         type: "text",
         text: "おっ、そうだな！！！！"
       });
-      
     }
   }
 });
