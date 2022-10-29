@@ -21,11 +21,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: set tag
-        run: |-
-          export TIMESTUMP=$(date +%s)
-          export SHA=$(echo ${{ github.sha }} | cut -c1-7)
-          echo "IMAGE_TAG=$SHA-$TIMESTUMP" >> $GITHUB_ENV
       - name: Build
         uses: docker/build-push-action@v3
         with:
@@ -33,6 +28,12 @@ jobs:
           file: ./app/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ghcr.io/csenet/clipviewer-line-proxy:${{ env.IMAGE_TAG }}
+          tags: ghcr.io/csenet/clipviewer-line-proxy:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Deploy to AWS
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: 'ubuntu@13.113.189.59'
+          privateKey: ${{ secrets.PRIVATE_KEY }}
+          command: cd clipviewer-line-proxy; docker pull ghcr.io/csenet/clipviewer-line-proxy:latest; docker-compose up -d
