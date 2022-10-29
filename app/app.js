@@ -25,9 +25,10 @@ const api = new APIController(username, password, apiKey, deviceId);
 const line = new LINEAPIController(process.env.LINE_ACCESS_TOKEN);
 
 let prevDataTimeStamp = null;
+let data = null;
 
 async function sendData() {
-  const data = await api.getEnviromentData();
+  data = await api.getEnviromentData();
   // データの更新がない場合は送信しないようにする
   if (data.timeStamp == prevDataTimeStamp) return;
   const messages = getMessage(data);
@@ -84,6 +85,13 @@ app.post('/webhook', async (req, res) => {
     const replyToken = req.body.events[0].replyToken;
     // ここら辺を書き換えてあげれば返信できる
     // こんな感じにtext==""とか条件を指定してあげれば大丈夫
+    if (data == null) {
+      await client.replyMessage(replyToken, {
+        type: "text",
+        text: "まだ、データが取得できていません"
+      });
+      return;
+    }
     if (text == "しりとり") {
       await client.replyMessage(replyToken, {
         type: "text",
