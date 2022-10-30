@@ -47,7 +47,7 @@ function getMessage(data) {
       text: "暑いー気温下げてー"
     });
   }
-  if (data.humidity < 30) {
+  if (data.humidity < 15) {
     messages.push({
       type: "text",
       text: "喉乾いたよー水がほしいー"
@@ -138,24 +138,50 @@ app.post('/webhook', async (req, res) => {
           text: "ちょっと冷えてきたかな、ガクガクブルブル"
         });
       }
-    } else if (text == "使い方") {
+    } else if (text == "けつ") {
       await client.replyMessage(replyToken, {
         type: "text",
-        text: "気分はどう？\n水は足りてる？\n部屋の空気は綺麗かな\nといったように話しかけるとお返事します！"
+        text: "ごちけつ？"
+      });
+    } else if (text == "おはよう！") {
+      await client.replyMessage(replyToken, {
+        type: "text",
+        text: "おはよう！！"
+      });
+    } else if (text == "こんにちは！") {
+      await client.replyMessage(replyToken, {
+        type: "text",
+        text: "こにゃにゃちわ！"
+      });
+    } else if (text == "元気いっぱいに育ってね") {
+      await client.replyMessage(replyToken, {
+        type: "text",
+        text: "うん！すくすく大きくなるね！"
+      });
+    } else if (text == "今日の服は何がいいだろう") {
+      if (data.temprature >= 25) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "今日は暑そうだから涼しい服がいいと思うよ！"
+        });
+      } else if (data.temprature >= 15 && data.temprature < 25) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "今日はちょうどいい気温みたいだね、秋服とか春服とかどうだろう？"
+        });
+      } else if (data.temprature < 15) {
+        await client.replyMessage(replyToken, {
+          type: "text",
+          text: "今日は寒そう、暖かい服がいいと思う！"
+        });
+      }
+    } else {
+      await client.replyMessage(replyToken, {
+        type: "text",
+        text: "おっ、そうだな！！！！"
       });
     }
-  } else if (text == "けつ") {
-    await client.replyMessage(replyToken, {
-      type: "text",
-      text: "ごちけつ？"
-    });
-  } else {
-    await client.replyMessage(replyToken, {
-      type: "text",
-      text: "おっ、そうだな！！！！"
-    });
   }
-}
 });
 
 main();
