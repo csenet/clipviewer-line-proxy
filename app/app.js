@@ -138,18 +138,24 @@ app.post('/webhook', async (req, res) => {
           text: "ちょっと冷えてきたかな、ガクガクブルブル"
         });
       }
-    } else if (text == "けつ") {
+    } else if (text == "使い方") {
       await client.replyMessage(replyToken, {
         type: "text",
-        text: "ごちけつ？"
-      });
-    } else {
-      await client.replyMessage(replyToken, {
-        type: "text",
-        text: "おっ、そうだな！！！！"
+        text: "気分はどう？\n水は足りてる？\n部屋の空気は綺麗かな\nといったように話しかけるとお返事します！"
       });
     }
+  } else if (text == "けつ") {
+    await client.replyMessage(replyToken, {
+      type: "text",
+      text: "ごちけつ？"
+    });
+  } else {
+    await client.replyMessage(replyToken, {
+      type: "text",
+      text: "おっ、そうだな！！！！"
+    });
   }
+}
 });
 
 main();
