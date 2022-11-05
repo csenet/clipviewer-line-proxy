@@ -35,9 +35,10 @@ async function sendData() {
   const messages = getMessage(data);
   if (messages.length != 0) {
     // 前回の送信から1時間経っている場合は送信する
-    if (prevDataTimeStamp == null && (data.timeStamp - prevDataTimeStamp) > 60 * 60 * 1000) {
+    let nowTime = new Date().getMilliseconds();
+    if (prevDataTimeStamp == null || (nowTime - prevDataTimeStamp) > 60 * 60 * 1000) {
       await line.sendMessages(messages);
-      prevDataTimeStamp = data.timeStamp;
+      prevDataTimeStamp = nowTime;
     }
     console.log("New Data received:" + data.timeStamp);
   }
