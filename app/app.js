@@ -37,8 +37,8 @@ async function sendData() {
     // 前回の送信から1時間経っている場合は送信する
     if (prevDataTimeStamp == null && (data.timeStamp - prevDataTimeStamp) > 60 * 60 * 1000) {
       await line.sendMessages(messages);
+      prevDataTimeStamp = data.timeStamp;
     }
-    prevDataTimeStamp = data.timeStamp;
     console.log("New Data received:" + data.timeStamp);
   }
 }
