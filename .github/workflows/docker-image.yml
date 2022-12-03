@@ -34,6 +34,6 @@ jobs:
       - name: Deploy to AWS
         uses: JimCronqvist/action-ssh@master
         with:
-          hosts: 'ubuntu@13.113.189.59'
+          hosts: 'ubuntu@3.112.34.1'
           privateKey: ${{ secrets.PRIVATE_KEY }}
           command: cd clipviewer-line-proxy; git pull; docker pull ghcr.io/csenet/clipviewer-line-proxy:latest; docker-compose up -d
